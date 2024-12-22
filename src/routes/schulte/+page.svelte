@@ -17,7 +17,7 @@
 	}
 
 	let gs = $state({
-		n: 2,
+		n: 3,
 		currentTarget: 1,
 		startTs: Date.now(),
 		started: false,
@@ -40,7 +40,7 @@
 		}
 		gs.clear = setInterval(() => {
 			gs.elapsed = (Date.now() - gs.startTs) / 1000;
-		}, 100);
+		}, 10);
 	};
 
 	const onclick = (index: number) => {
@@ -65,8 +65,8 @@
 	};
 </script>
 
-<div class="grid grid-cols-3 items-center justify-center md:mx-auto">
-	<div class="mx-auto w-full">
+<div class="mx-auto grid grid-cols-3 items-center justify-center">
+	<div class="mx-auto w-4/5">
 		<input
 			type="range"
 			class="range range-success"
@@ -83,25 +83,20 @@
 	</div>
 	<div class="mx-auto">
 		<button
-			class="btn btn-lg btn-success disabled:btn-disabled"
+			class="btn btn-success btn-lg disabled:btn-disabled"
 			onclick={start_game}
 			disabled={gs.started}>start</button
 		>
 	</div>
-	<div class="stats mx-auto shadow">
-		<div class="stat">
-			<div class="stat-value font-mono">{gs.elapsed.toFixed(3)}</div>
-		</div>
-	</div>
+	<div class="mx-auto font-mono text-2xl">{gs.elapsed.toFixed(2)}</div>
 </div>
 
 <div class="divider"></div>
 
-<div class="w-2/5 md:mx-auto">
+<div class="mx-auto portrait:w-full md:w-2/3">
 	<div class="grid gap-2 grid-cols-{gs.n}">
 		{#each grids as value, index}
 			<SchulteGrid bind:clicked={clicks[index]} {index} {value} {onclick} />
 		{/each}
 	</div>
 </div>
-
