@@ -17,7 +17,10 @@ const config = {
             fallback: 'index.html',
             precompress: true,
             strict: true
-        })
+        }),
+        output: {
+            bundleStrategy: 'single'
+        }
     }
 };
 
