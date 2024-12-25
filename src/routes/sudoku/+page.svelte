@@ -58,14 +58,14 @@
 	{#each values as value, index}
 		<div
 			class="aspect-square w-full items-center justify-center rounded-md
-            {backgrounds[index] == 0 ? 'bg-amber-200' : 'bg-amber-500'}
+            {backgrounds[index] === 0 ? 'bg-amber-200' : 'bg-amber-500'}
             "
 		>
 			<button
 				class="h-full w-full text-5xl text-black"
 				onclick={() => {
 					enterInputButtonCallback(index);
-				}}>{value == 0 ? '' : value}</button
+				}}>{value === 0 ? '' : value}</button
 			>
 		</div>
 	{/each}

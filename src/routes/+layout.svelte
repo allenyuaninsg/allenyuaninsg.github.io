@@ -1,9 +1,7 @@
 <script lang="ts">
 	import '../app.css';
+
 	let { children } = $props();
-    export const ssr = false;
-    export const csr = true;
-    export const prerender = false;
 </script>
 
 <div class="invisible">
@@ -20,6 +18,7 @@
 		<li><a href="/">主页</a></li>
 		<li><a href="/schulte">舒尔特方格</a></li>
 		<li><a href="/sudoku">数独</a></li>
+		<li><a href="/flappybird">flappybird</a></li>
 	</ul>
 </div>
 <div class="divider"></div>
