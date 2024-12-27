@@ -1,10 +1,10 @@
-import * as ex from 'excalibur';
-import { Ground } from './ground';
-import { Collider, Engine } from 'excalibur';
-import { Pipe } from './pipe';
-import { Config } from './config';
-import { Level } from './level';
-import { Resources } from './resources';
+import * as ex from "excalibur";
+import { Ground } from "./ground";
+import { Collider, Engine } from "excalibur";
+import { Pipe } from "./pipe";
+import { Config } from "./config";
+import { Level } from "./level";
+import { Resources } from "./resources";
 
 export class Bird extends ex.Actor {
     jumping = false;
@@ -30,39 +30,47 @@ export class Bird extends ex.Actor {
                 spriteWidth: 32,
                 spriteHeight: 32
             }
-        })
+        });
 
         this.startSprit = spritSheet.getSprite(1, 0);
-        this.upAnimation = ex.Animation.fromSpriteSheet(spritSheet, [2, 1, 0], 150, ex.AnimationStrategy.Freeze);
-        this.downAnimation = ex.Animation.fromSpriteSheet(spritSheet, [0, 1, 2], 150, ex.AnimationStrategy.Freeze);
+        this.upAnimation = ex.Animation.fromSpriteSheet(
+            spritSheet,
+            [2, 1, 0],
+            150,
+            ex.AnimationStrategy.Freeze
+        );
+        this.downAnimation = ex.Animation.fromSpriteSheet(
+            spritSheet,
+            [0, 1, 2],
+            150,
+            ex.AnimationStrategy.Freeze
+        );
 
-        this.graphics.add('down', this.downAnimation);
-        this.graphics.add('up', this.upAnimation);
-        this.graphics.add('start', this.startSprit);
+        this.graphics.add("down", this.downAnimation);
+        this.graphics.add("up", this.upAnimation);
+        this.graphics.add("start", this.startSprit);
 
-        this.graphics.use('start')
+        this.graphics.use("start");
 
-
-
-        this.on('exitviewport', () => {
+        this.on("exitviewport", () => {
             this.level.triggerGameOver();
         });
     }
 
     override onCollisionStart(_self: Collider, other: Collider) {
         if (other.owner instanceof Ground || other.owner instanceof Pipe) {
-            this.level.triggerGameOver()
+            this.level.triggerGameOver();
         }
     }
 
     start() {
         this.playing = true;
         this.pos = Config.BirdStartPos;
-        this.acc = ex.vec(0, Config.BirdAcceleration)
+        this.acc = ex.vec(0, Config.BirdAcceleration);
     }
 
     stop() {
-        console.log('bird stopped');
+        console.log("bird stopped");
         this.playing = false;
         this.vel = ex.vec(0, 0);
         this.acc = ex.vec(0, 0);
@@ -70,7 +78,7 @@ export class Bird extends ex.Actor {
 
     reset() {
         this.pos = Config.BirdStartPos;
-        this.stop()
+        this.stop();
     }
 
     private isInputActive(engine: Engine): boolean {

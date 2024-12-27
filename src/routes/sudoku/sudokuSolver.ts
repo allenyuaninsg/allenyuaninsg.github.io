@@ -2,7 +2,7 @@ export class SudokuSolver {
     private result: number[];
     private count: Map<number, number> = new Map();
     constructor(private puzzle: number[]) {
-        this.result = []
+        this.result = [];
     }
 
     /**
@@ -28,11 +28,17 @@ export class SudokuSolver {
         const currentRow = Math.floor(index / 9);
         const currentCol = index - 9 * currentRow;
         const currentGrid = SudokuSolver.indexToGridIndex(index);
-        console.log(`index=${index}, currentRow=${currentRow}, currentCol=${currentCol}, currentGrid=${currentGrid}`);
-        let pp = Array.from(p, (v) => v)
+        console.log(
+            `index=${index}, currentRow=${currentRow}, currentCol=${currentCol}, currentGrid=${currentGrid}`
+        );
+        let pp = Array.from(p, (v) => v);
         for (let v = 1; v <= 9; ++v) {
             pp[index] = v;
-            if (this.checkOneRow(pp, currentRow) && this.checkOneCol(pp, currentCol) && this.checkOneGrid(pp, currentGrid)) {
+            if (
+                this.checkOneRow(pp, currentRow) &&
+                this.checkOneCol(pp, currentCol) &&
+                this.checkOneGrid(pp, currentGrid)
+            ) {
                 if (this.subsolve(pp)) {
                     return true;
                 }
@@ -105,7 +111,7 @@ export class SudokuSolver {
 
     private checkOneGrid(p: number[], gridIndex: number) {
         const index = this.calcGridIndex(gridIndex);
-        this.count.clear()
+        this.count.clear();
         for (let j = 0; j < index.length; j++) {
             const v = p[index[j]];
             if (v > 0) {
@@ -114,7 +120,6 @@ export class SudokuSolver {
                 }
                 this.count.set(v, 1);
             }
-
         }
         return true;
     }
@@ -142,7 +147,7 @@ export class SudokuSolver {
             leftTop + 18,
             leftTop + 19,
             leftTop + 20
-        ]
+        ];
     }
 
     static indexToGridIndex(index: number) {

@@ -15,17 +15,14 @@ export function shuffle<T>(array: T[]): T[] {
     return array;
 }
 
-
 export class RowCol {
-
-    constructor(public row: number, public col: number) {
-    }
+    constructor(
+        public row: number,
+        public col: number
+    ) {}
     public static fromIndex(index: number, board: RowCol) {
         const row = Math.floor(index / board.col);
         const col = index - row * board.col;
-        return new RowCol(row, col)
+        return new RowCol(row, col);
     }
-
 }
-
-

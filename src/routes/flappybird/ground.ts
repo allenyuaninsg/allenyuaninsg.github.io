@@ -1,6 +1,6 @@
-import * as ex from 'excalibur';
-import { Resources } from './resources';
-import { Config } from './config';
+import * as ex from "excalibur";
+import { Resources } from "./resources";
+import { Config } from "./config";
 
 export class Ground extends ex.Actor {
     groundSprite = Resources.GroundImage.toSprite();
@@ -12,7 +12,7 @@ export class Ground extends ex.Actor {
             anchor: ex.vec(0, 0),
             height: 64,
             width: 400,
-            color: ex.Color.fromHex('#bd9853'),
+            color: ex.Color.fromHex("#bd9853"),
             z: 1
         });
     }
@@ -20,7 +20,7 @@ export class Ground extends ex.Actor {
     override onInitialize(engine: ex.Engine): void {
         this.groundSprite.sourceView.width = engine.screen.drawWidth;
         this.groundSprite.destSize.width = engine.screen.drawWidth;
-        this.graphics.use(this.groundSprite)
+        this.graphics.use(this.groundSprite);
     }
 
     override onPostUpdate(_engine: ex.Engine, elapsedMs: number) {
@@ -28,7 +28,8 @@ export class Ground extends ex.Actor {
             return;
         }
         this.groundSprite.sourceView.x += Config.PipeSpeed * (elapsedMs / 1000);
-        this.groundSprite.sourceView.x = this.groundSprite.sourceView.x % Resources.GroundImage.width;
+        this.groundSprite.sourceView.x =
+            this.groundSprite.sourceView.x % Resources.GroundImage.width;
     }
 
     start() {

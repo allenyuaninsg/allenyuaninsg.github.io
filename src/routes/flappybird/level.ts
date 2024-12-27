@@ -1,10 +1,10 @@
-import * as ex from 'excalibur';
-import { TextAlign } from 'excalibur';
-import { Bird } from './bird';
-import { Ground } from './ground';
-import { PipeFactory } from './pipe-factory';
-import { Config } from './config';
-import { Resources } from './resources';
+import * as ex from "excalibur";
+import { TextAlign } from "excalibur";
+import { Bird } from "./bird";
+import { Ground } from "./ground";
+import { PipeFactory } from "./pipe-factory";
+import { Config } from "./config";
+import { Resources } from "./resources";
 
 export class Level extends ex.Scene {
     random = new ex.Random();
@@ -16,7 +16,7 @@ export class Level extends ex.Scene {
     best: number = 0;
 
     scoreLabel = new ex.Label({
-        text: 'Score: 0',
+        text: "Score: 0",
         x: 0,
         y: 0,
         z: 1,
@@ -27,7 +27,7 @@ export class Level extends ex.Scene {
     });
 
     bestLabel = new ex.Label({
-        text: 'best: 0',
+        text: "best: 0",
         x: 400,
         y: 0,
         z: 1,
@@ -39,7 +39,7 @@ export class Level extends ex.Scene {
     });
 
     startGameLabel = new ex.Label({
-        text: 'Tap to Start',
+        text: "Tap to Start",
         x: 200,
         y: 200,
         z: 2,
@@ -60,7 +60,7 @@ export class Level extends ex.Scene {
         this.add(this.bestLabel);
         this.add(this.startGameLabel);
 
-        const bestScore = localStorage.getItem('bestScore');
+        const bestScore = localStorage.getItem("bestScore");
         if (bestScore) {
             this.best = +bestScore;
             this.setBestScore(this.best);
@@ -77,40 +77,45 @@ export class Level extends ex.Scene {
 
     private setBestScore(score: number) {
         if (score > this.best) {
-            localStorage.setItem('bestScore', this.score.toString());
+            localStorage.setItem("bestScore", this.score.toString());
             this.best = score;
         }
         this.bestLabel.text = `Best: ${this.best}`;
     }
 
     showStartInstructions() {
-        this.startGameLabel.graphics.isVisible = false
-        this.engine.input.pointers.once('down', () => {
-            this.reset()
+        this.startGameLabel.graphics.isVisible = false;
+        this.engine.input.pointers.once("down", () => {
+            this.reset();
             this.startGameLabel.graphics.isVisible = false;
-            this.bird.start()
+            this.bird.start();
             this.pipeFactor.start();
-            this.ground.start()
-        })
+            this.ground.start();
+        });
     }
 
     reset() {
-        this.bird.reset()
+        this.bird.reset();
         this.pipeFactor.reset();
-        this.score = 0
+        this.score = 0;
         this.scoreLabel.text = `Score: ${this.score}`;
     }
 
     triggerGameOver() {
-        this.pipeFactor.stop()
-        this.bird.stop()
-        this.ground.stop()
-        this.showStartInstructions()
+        this.pipeFactor.stop();
+        this.bird.stop();
+        this.ground.stop();
+        this.showStartInstructions();
     }
 
     override onActivate(_context: ex.SceneActivationContext<unknown>): void {
         Resources.BackgroundMusic.loop = true;
-        Resources.BackgroundMusic.play()
+        Resources.BackgroundMusic.play();
     }
 
+    override onDeactivate(context: ex.SceneActivationContext): void {
+        console.log("leaving flappy bird scene");
+        Resources.BackgroundMusic.loop = false;
+        Resources.BackgroundMusic.stop();
+    }
 }
