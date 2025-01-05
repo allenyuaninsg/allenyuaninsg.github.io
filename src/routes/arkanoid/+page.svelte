@@ -1,28 +1,25 @@
 <script lang="ts">
     import * as ex from "excalibur";
     import { onMount, onDestroy } from "svelte";
-    import { GameScene, GameOverScene, Resources } from "./level";
+    import { GameScene, GameOverScene } from "./arkanoid";
 
-    const canvasId = "canvas_id";
+    const canvasId = "canvas_arkanoid";
     let game: ex.Engine;
 
     onMount(() => {
         game = new ex.Engine({
             width: 480,
-            height: 853,
+            height: 480,
             displayMode: ex.DisplayMode.Fixed,
             canvasElementId: canvasId,
             scenes: {
-                Level: GameScene,
-                GameOver: GameOverScene
-            },
-            backgroundColor: ex.Color.Black
+                game: GameScene,
+                gameOver: GameOverScene
+            }
         });
 
-        const loader = new ex.Loader(Object.values(Resources));
-
-        game.start(loader).then(() => {
-            game.goToScene("Level");
+        game.start().then(() => {
+            game.goToScene("gameOver");
         });
     });
 

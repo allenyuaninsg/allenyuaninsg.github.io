@@ -20,6 +20,7 @@
         <li><a href="/sudoku">数独</a></li>
         <li><a href="/flappybird">flappybird</a></li>
         <li><a href="/flight">flight</a></li>
+        <li><a href="/arkanoid">arkanoid</a></li>
     </ul>
 </div>
 <div class="divider"></div>
